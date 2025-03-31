@@ -36,13 +36,24 @@ namespace Projet_Final.Data.Services
 
 		public async Task<IEnumerable<Furniture>> GetAllFurnituresAsync()
 		{
-			var result = await _context.Furnitures.OrderBy(f => f.Name).ToListAsync();
+			var result = await _context.Furnitures
+				.OrderBy(f => f.Name)
+				.Include(t => t.TypeFurniture)
+				.ToListAsync();
+			return result;
+		}
+
+		public async Task<IEnumerable<FurnitureType>> GetAllFurnitureTypesAsync()
+		{
+			var result = await _context.FurnitureTypes.OrderBy(t => t.Id).ToListAsync();
 			return result;
 		}
 
 		public async Task<Furniture> GetFurnitureByIdAsync(int id)
 		{
-			var result = await _context.Furnitures.FirstOrDefaultAsync(f => f.Id == id);
+			var result = await _context.Furnitures
+				.Include(t => t.TypeFurniture)
+				.FirstOrDefaultAsync(f => f.Id == id);
 			return result;
 		}
 
@@ -55,7 +66,6 @@ namespace Projet_Final.Data.Services
 				result.Description = furniture.Description;
 				result.UrlPicture = furniture.UrlPicture;
 				result.Price = furniture.Price;
-				result.Quantity = furniture.Quantity;
 				result.Comments = furniture.Comments;
 				result.TypeFurnitureId = furniture.TypeFurnitureId;
 				await _context.SaveChangesAsync();

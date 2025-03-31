@@ -45,9 +45,6 @@ namespace Projet_Final.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
                     b.Property<int>("TypeFurnitureId")
                         .HasColumnType("int");
 

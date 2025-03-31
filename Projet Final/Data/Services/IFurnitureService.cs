@@ -5,6 +5,7 @@ namespace Projet_Final.Data.Services
 	public interface IFurnitureService
 	{
 		Task<IEnumerable<Furniture>> GetAllFurnituresAsync();
+		Task<IEnumerable<FurnitureType>> GetAllFurnitureTypesAsync();
 		Task<Furniture> GetFurnitureByIdAsync(int id);
 		Task<bool> AddFurnitureAsync(Furniture furniture);
 		Task<Furniture> UpdateFurnitureAsync(int id, Furniture furniture);

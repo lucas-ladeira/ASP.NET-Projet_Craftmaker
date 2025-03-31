@@ -11,7 +11,7 @@ using Projet_Final.Data;
 namespace Projet_Final.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250329190003_MyMigration")]
+    [Migration("20250329225452_MyMigration")]
     partial class MyMigration
     {
         /// <inheritdoc />
@@ -47,9 +47,6 @@ namespace Projet_Final.Migrations
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
 
                     b.Property<int>("TypeFurnitureId")
                         .HasColumnType("int");
