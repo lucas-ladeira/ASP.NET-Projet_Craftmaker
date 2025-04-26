@@ -15,6 +15,7 @@ namespace Projet_Final
 
 			// Configuration Interface Service
 			builder.Services.AddScoped<IFurnitureService, FurnitureService>();
+			builder.Services.AddScoped<IFurnitureTypeService, FurnitureTypeService>();
 			builder.Services.AddControllersWithViews();
 
 			var app = builder.Build();

@@ -17,14 +17,14 @@ namespace Projet_Final.Controllers
 		public async Task<IActionResult> Index()
 		{
 			// Récupérer la liste des types de meubles
-			IEnumerable<FurnitureType> furnitureTypes = await _service.GetAllFurnitureTypeAsync();
+			IEnumerable<FurnitureType> furnitureTypes = await _service.GetAllAsync();
 			return View(furnitureTypes);
 		}
 
 		// GET: FurnitureType/Details/1
 		public async Task<IActionResult> Details(int id)
 		{
-			FurnitureType furnitureType = await _service.GetFurnitureTypeByIdAsync(id);
+			FurnitureType furnitureType = await _service.GetByIdAsync(id);
 			return View(furnitureType);
 		}
 
@@ -41,7 +41,7 @@ namespace Projet_Final.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				if (!await _service.AddFurnitureTypeAsync(furnitureType))
+				if (!await _service.AddNewAsync(furnitureType))
 				{
 					ModelState.AddModelError("Name", "Le type de meuble existe déjà");
 					return View(furnitureType);
@@ -54,7 +54,7 @@ namespace Projet_Final.Controllers
 		// GET: FurnitureType/Edit/1
 		public async Task<IActionResult> Edit(int id)
 		{
-			var furnitureType = await _service.GetFurnitureTypeByIdAsync(id);
+			var furnitureType = await _service.GetByIdAsync(id);
 			if (furnitureType == null) return View("NotFound");
 			return View(furnitureType);
 		}
@@ -68,14 +68,14 @@ namespace Projet_Final.Controllers
 			{
 				return View(furnitureType);
 			}
-			await _service.UpdateFurnitureTypeAsync(id, furnitureType);
+			await _service.UpdateAsync(id, furnitureType);
 			return RedirectToAction(nameof(Index));
 		}
 
 		// GET: FurnitureType/Delete/1
 		public async Task<IActionResult> Delete(int id)
 		{
-			var furnitureType = await _service.GetFurnitureTypeByIdAsync(id);
+			var furnitureType = await _service.GetByIdAsync(id);
 			if (furnitureType == null) return View("NotFound");
 			return View(furnitureType);
 		}
@@ -85,9 +85,9 @@ namespace Projet_Final.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
-			var furnitureType = await _service.GetFurnitureTypeByIdAsync(id);
+			var furnitureType = await _service.GetByIdAsync(id);
 			if (furnitureType == null) return View("NotFound");
-			await _service.DeleteFurnitureTypeAsync(id);
+			await _service.DeleteAsync(id);
 			return RedirectToAction(nameof(Index));
 		}
 	}

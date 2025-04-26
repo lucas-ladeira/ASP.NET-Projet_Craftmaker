@@ -4,11 +4,10 @@ namespace Projet_Final.Data.Services
 {
 	public interface IFurnitureService
 	{
-		Task<IEnumerable<Furniture>> GetAllFurnituresAsync();
-		Task<IEnumerable<FurnitureType>> GetAllFurnitureTypesAsync();
-		Task<Furniture> GetFurnitureByIdAsync(int id);
-		Task<bool> AddFurnitureAsync(Furniture furniture);
-		Task<Furniture> UpdateFurnitureAsync(int id, Furniture furniture);
-		Task DeleteFurnitureAsync(int id);
+		Task<IEnumerable<Furniture>> GetAllAsync();
+		Task<Furniture> GetByIdAsync(int id);
+		Task<bool> AddNewAsync(Furniture furniture);
+		Task<Furniture> UpdateAsync(int id, Furniture furniture);
+		Task DeleteAsync(int id);
 	}
 }

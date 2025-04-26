@@ -1,67 +1,77 @@
 ﻿@model IEnumerable<Projet_Final.Models.Furniture>
 
 @{
-	ViewData["Title"] = "Liste des meubles enregistrés";
+	ViewData["Title"] = "Meubles";
 }
 
 <h1 class="text-center my-5">Liste des meubles enregistrés</h1>
 
-<div style="position:fixed; right:25px; bottom:80px;">
+<div style="position:fixed; right:20px; bottom:60px;">
 	<a class="btn btn-success" asp-action="Create">Créer un nouveau</a>
 </div>
 
-<table class="table table-striped mb-5">
-	<thead>
-		<tr class="bg-dark text-white">
-			<th class="align-middle">
-				@Html.DisplayNameFor(model => model.UrlPicture)
-			</th>
-			<th class="align-middle">
-				@Html.DisplayNameFor(model => model.Name)
-			</th>
-			<th class="align-middle">
-				@Html.DisplayNameFor(model => model.Description)
-			</th>
-			<th class="align-middle">
-				@Html.DisplayNameFor(model => model.Price)
-			</th>
-			<th class="align-middle">
-				@Html.DisplayNameFor(model => model.Comments)
-			</th>
-			<th class="align-middle">
-				@Html.DisplayNameFor(model => model.TypeFurniture)
-			</th>
-			<th>Actions</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Model)
-		{
-			<tr>
-				<td class="align-middle">
-					<img class="img-fluid rounded-3" src="@item.UrlPicture" alt="@item.Name" style="max-width:150px" />
-				</td>
-				<td class="align-middle">
-					@Html.DisplayFor(modelItem => item.Name)
-				</td>
-				<td class="align-middle">
-					@Html.DisplayFor(modelItem => item.Description)
-				</td>
-				<td class="align-middle">
-					@item.Price.ToString("F2")$
-				</td>
-				<td class="align-middle text-center">
-					@(item.Comments == null ? "-" : item.Comments)
-				</td>
-				<td class="align-middle">
-					@(item.TypeFurniture == null ? "Type non défini" : item.TypeFurniture.Name)
-				</td>
-				<td class="align-middle">
-					<a title="Edit" class="btn btn-primary rounded-circle" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"> </i> </a> |
-					<a title="Details" class="btn btn-warning rounded-circle" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-info-circle"> </i> </a> |
-					<a title="Delete" class="btn btn-danger rounded-circle" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash3"> </i> </a>
-				</td>
+<div class="container">
+	<table id="furnitureList" class="table table-striped table-bordered table-sm mb-5">
+		<thead>
+			<tr class="bg-dark text-white">
+				<th class="align-middle">
+					@Html.DisplayNameFor(model => model.UrlPicture)
+				</th>
+				<th class="align-middle">
+					@Html.DisplayNameFor(model => model.Name)
+				</th>
+				<th class="align-middle">
+					@Html.DisplayNameFor(model => model.Description)
+				</th>
+				<th class="align-middle">
+					@Html.DisplayNameFor(model => model.Price)
+				</th>
+				<th class="align-middle">
+					@Html.DisplayNameFor(model => model.Comments)
+				</th>
+				<th class="align-middle">
+					@Html.DisplayNameFor(model => model.TypeFurniture)
+				</th>
+				<th class="align-middle text-center">
+					Actions
+				</th>
 			</tr>
-		}
-	</tbody>
-</table>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td class="align-middle">
+						<img class="img-fluid rounded-3" src="@item.UrlPicture" alt="@item.Name" style="max-width:150px" />
+					</td>
+					<td class="align-middle">
+						@Html.DisplayFor(modelItem => item.Name)
+					</td>
+					<td class="align-middle">
+						@Html.DisplayFor(modelItem => item.Description)
+					</td>
+					<td class="align-middle">
+						@item.Price.ToString("F2")$
+					</td>
+					<td class="align-middle text-center">
+						@(item.Comments == null ? "-" : item.Comments)
+					</td>
+					<td class="align-middle">
+						@(item.TypeFurniture == null ? "Type non défini" : item.TypeFurniture.Name)
+					</td>
+					<td class="align-middle text-center">
+						<a title="Edit" class="btn btn-primary rounded-circle m-1" asp-action="Edit" asp-route-id="@item.Id">
+							<i class="bi bi-pencil-square"> </i>
+						</a>
+						<a title="Details" class="btn btn-warning rounded-circle m-1" asp-action="Details" asp-route-id="@item.Id">
+							<i class="bi bi-info-circle"> </i>
+						</a>
+						<a title="Delete" class="btn btn-danger rounded-circle m-1" asp-action="Delete" asp-route-id="@item.Id">
+							<i class="bi bi-trash3"> </i>
+						</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

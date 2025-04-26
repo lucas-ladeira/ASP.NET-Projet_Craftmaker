@@ -8,24 +8,26 @@ namespace Projet_Final.Controllers
 	public class FurnitureController : Controller
 	{
 		private readonly IFurnitureService _service;
+		private readonly IFurnitureTypeService _serviceType;
 
-		public FurnitureController(IFurnitureService service)
+		public FurnitureController(IFurnitureService service, IFurnitureTypeService serviceType)
 		{
 			_service = service;
+			_serviceType = serviceType;
 		}
 
 		// GET: Furniture/
 		public async Task<IActionResult> Index()
 		{
 			// Récupérer la liste des meubles
-			IEnumerable<Furniture> furnitures = await _service.GetAllFurnituresAsync();
+			IEnumerable<Furniture> furnitures = await _service.GetAllAsync();
 			return View(furnitures);
 		}
 
 		// GET: Furniture/Details/1
 		public async Task<IActionResult> Details(int id)
 		{
-			var furniture = await _service.GetFurnitureByIdAsync(id);
+			var furniture = await _service.GetByIdAsync(id);
 			if (furniture == null) return View("NotFound");
 			return View(furniture);
 		}
@@ -33,7 +35,7 @@ namespace Projet_Final.Controllers
 		// GET: Furniture/Create
 		public async Task<IActionResult> Create()
 		{
-			IEnumerable<FurnitureType> types = await _service.GetAllFurnitureTypesAsync();
+			IEnumerable<FurnitureType> types = await _serviceType.GetAllAsync();
 			ViewBag.TypeFurnitureId = new SelectList(types, "Id", "Name");
 			return View();
 		}
@@ -45,14 +47,14 @@ namespace Projet_Final.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				if (!await _service.AddFurnitureAsync(furniture))
+				if (!await _service.AddNewAsync(furniture))
 				{
 					ModelState.AddModelError("Name", "Le meuble existe déjà");
 					return View(furniture);
 				}
 				return RedirectToAction(nameof(Index));
 			}
-			var types = await _service.GetAllFurnitureTypesAsync();
+			var types = await _serviceType.GetAllAsync();
 			ViewBag.TypeFurnitureId = new SelectList(types, "Id", "Name");
 			return View(furniture);
 		}
@@ -60,9 +62,9 @@ namespace Projet_Final.Controllers
 		// GET: Furniture/Edit/1
 		public async Task<IActionResult> Edit(int id)
 		{
-			var furniture = await _service.GetFurnitureByIdAsync(id);
+			var furniture = await _service.GetByIdAsync(id);
 			if (furniture == null) return View("NotFound");
-			var types = await _service.GetAllFurnitureTypesAsync();
+			var types = await _serviceType.GetAllAsync();
 			ViewBag.TypeFurnitureId = new SelectList(types, "Id", "Name");
 			return View(furniture);
 		}
@@ -74,12 +76,12 @@ namespace Projet_Final.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
-				var furnitureTypes = await _service.GetAllFurnitureTypesAsync();
+				var furnitureTypes = await _serviceType.GetAllAsync();
 				ViewBag.TypeFurnitureId = new SelectList(furnitureTypes, "Id", "Name", furniture.TypeFurnitureId);
 				return View(furniture);
 			}
-			await _service.UpdateFurnitureAsync(id, furniture);
-			var types = await _service.GetAllFurnitureTypesAsync();
+			await _service.UpdateAsync(id, furniture);
+			var types = await _serviceType.GetAllAsync();
 			ViewBag.TypeFurnitureId = new SelectList(types, "Id", "Name");
 			return RedirectToAction(nameof(Index));
 		}
@@ -87,7 +89,7 @@ namespace Projet_Final.Controllers
 		// GET: Furniture/Delete/1
 		public async Task<IActionResult> Delete(int id)
 		{
-			var furniture = await _service.GetFurnitureByIdAsync(id);
+			var furniture = await _service.GetByIdAsync(id);
 			if (furniture == null) return View("NotFound");
 			return View(furniture);
 		}
@@ -97,9 +99,9 @@ namespace Projet_Final.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
-			var furniture = await _service.GetFurnitureByIdAsync(id);
+			var furniture = await _service.GetByIdAsync(id);
 			if (furniture == null) return View("NotFound");
-			await _service.DeleteFurnitureAsync(id);
+			await _service.DeleteAsync(id);
 			return RedirectToAction(nameof(Index));
 		}
 	}

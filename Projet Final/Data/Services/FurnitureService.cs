@@ -12,7 +12,7 @@ namespace Projet_Final.Data.Services
 			_context = context;
 		}
 
-		public async Task<bool> AddFurnitureAsync(Furniture furniture)
+		public async Task<bool> AddNewAsync(Furniture furniture)
 		{
 			bool existingFurniture = await _context.Furnitures.AnyAsync(f => f.Id == furniture.Id);
 			if (existingFurniture)
@@ -24,7 +24,7 @@ namespace Projet_Final.Data.Services
 			return true;
 		}
 
-		public async Task DeleteFurnitureAsync(int id)
+		public async Task DeleteAsync(int id)
 		{
 			var result = await _context.Furnitures.FirstOrDefaultAsync(f => f.Id == id);
 			if (result != null)
@@ -34,7 +34,7 @@ namespace Projet_Final.Data.Services
 			}
 		}
 
-		public async Task<IEnumerable<Furniture>> GetAllFurnituresAsync()
+		public async Task<IEnumerable<Furniture>> GetAllAsync()
 		{
 			var result = await _context.Furnitures
 				.OrderBy(f => f.Name)
@@ -43,13 +43,7 @@ namespace Projet_Final.Data.Services
 			return result;
 		}
 
-		public async Task<IEnumerable<FurnitureType>> GetAllFurnitureTypesAsync()
-		{
-			var result = await _context.FurnitureTypes.OrderBy(t => t.Id).ToListAsync();
-			return result;
-		}
-
-		public async Task<Furniture> GetFurnitureByIdAsync(int id)
+		public async Task<Furniture> GetByIdAsync(int id)
 		{
 			var result = await _context.Furnitures
 				.Include(t => t.TypeFurniture)
@@ -57,7 +51,7 @@ namespace Projet_Final.Data.Services
 			return result;
 		}
 
-		public async Task<Furniture> UpdateFurnitureAsync(int id, Furniture furniture)
+		public async Task<Furniture> UpdateAsync(int id, Furniture furniture)
 		{
 			var result = await _context.Furnitures.FirstOrDefaultAsync(f => f.Id == id);
 			if (result != null)

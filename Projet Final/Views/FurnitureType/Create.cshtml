@@ -1,0 +1,29 @@
+﻿@model Projet_Final.Models.FurnitureType
+
+@{
+	ViewData["Title"] = "Créer type de meuble";
+}
+
+<h1 class="text-center my-3">Créer un nouveau type de meuble</h1>
+
+<hr />
+<div class="row">
+	<div class="col-md-4">
+		<form asp-action="Create">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="Name" class="control-label"></label>
+				<input asp-for="Name" class="form-control" />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="form-group mt-3">
+				<input type="submit" value="Créer" class="btn btn-primary" />
+				<a class="btn btn-secondary" asp-action="Index">Retour</a>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div>
+</div>
+

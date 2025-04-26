@@ -1,8 +1,33 @@
-﻿@{
-    ViewData["Title"] = "Accueil";
+﻿@model IEnumerable<Furniture>
+
+@{
+	ViewData["Title"] = "Magasin";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mb-5">
+	<h1 class="display-4">Magasin Larmoire</h1>
+</div>
+
+<div class="container">
+	<div class="row g-4">
+		@foreach (var item in Model)
+		{
+			<div class="card m-2" style="max-width: 400px;">
+				<div class="row g-0">
+					<div class="col-md-4 d-flex justify-content-center align-items-center h-100">
+						<img class="img-fluid book-image" src="@item.UrlPicture" alt="@item.Name" />
+					</div>
+					<div class="col-md-8 align-middle">
+						<div class="card-body">
+							<h5 class="card-title"><b>Title: </b>@item.Name</h5>
+							<p class="card-text"><b>Description: </b>@item.Description</p>
+							<a class="btn btn-success text-white" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id">
+								<i class="bi bi-cart-plus"></i> Add (Price @item.Price.ToString("F2") $)
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
 </div>
