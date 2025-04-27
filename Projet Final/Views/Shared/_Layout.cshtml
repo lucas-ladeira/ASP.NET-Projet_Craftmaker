@@ -40,6 +40,9 @@
 						<input name="searchString" class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search">
 						<button class="btn btn-outline-success" type="submit">Recherche</button>
 					</form>
+					<ul class="navbar-nav">
+						@await Component.InvokeAsync("ShoppingCartSummary")
+					</ul>
 				</div>
 			</div>
 		</nav>
@@ -52,7 +55,7 @@
 
 	<footer class="border-top footer text-muted bg-dark mt-4 py-2">
 		<div class="container text-center text-white">
-			Larmoire Wood Furnitures &copy; 2025 - Bellinazzi Corp. - <a class="text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+			Larmoire Wood Furnitures &copy; 2025 - Bellinazzi Ltda. - <a class="text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
 		</div>
 	</footer>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>

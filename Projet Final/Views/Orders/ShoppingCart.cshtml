@@ -1,0 +1,122 @@
+﻿@using Projet_Final.Data.ViewModels
+@model ShoppingCartVM
+
+@{
+	ViewData["Title"] = "Sommaire du panier d'achat";
+}
+
+<div class="row">
+	<div class="col-md-8 offset-2">
+		<div class="text-center">
+			<h2>Toutes les commandes</h2>
+		</div>
+
+		<table class="table table-striped">
+			<thead>
+				<tr class="bg-dark text-white">
+					<th>Quantité</th>
+					<th>Furnitures</th>
+					<th>Price</th>
+					<th>Total</th>
+
+					<th>Actions</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model.ShoppingCart.ShoppingCartItems)
+				{
+					<tr>
+						<td class="align-middle">@item.Amount</td>
+						<td class="align-middle">@item.Furniture.Name</td>
+						<td class="align-middle">@item.Furniture.Price.ToString("c")</td>
+						<td class="align-middle">@((item.Amount * item.Furniture.Price).ToString("c"))</td>
+						<td class="align-middle">
+							<a class="text-danger mx-1" asp-controller="Orders" asp-action="RemoveItemFromShoppingCart"
+							   asp-route-id="@item.Furniture.Id">
+								<i class="bi bi-cart-dash"></i>
+							</a>
+							
+							<a class="text-success mx-1" asp-controller="Orders" asp-action="AddItemToShoppingCart"
+							   asp-route-id="@item.Furniture.Id">
+								<i class="bi bi-cart-plus"></i>
+							</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2"></td>
+					<td><b>Total:</b></td>
+					<td>
+						@Model.ShoppingCartTotal.ToString("c")
+					</td>
+					<td></td>
+				</tr>
+			</tfoot>
+		</table>
+		<div class="text-center">
+			<div class="btn-group">
+				<a class="btn btn-outline-success me-3 rounded-pill" asp-controller="Home" asp-action="Index">
+					Ajouter plus d'articles
+				</a>
+				<div id="paypal-btn"></div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+@section Scripts
+{
+	<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+	<script>
+
+		let _total = @Html.Raw(@Model.ShoppingCartTotal);
+
+		paypal.Button.render({
+			//configuration de l'environnement
+			env: 'sandbox',
+			client: {
+				sandbox: 'AeJ8j2SZCf8F6DK1gPYU3JbgZv1jq8K0HTQUMrUSz0-01v5TeLsI7JNOLI3_icdRcbaBWifvE5cZpiFo'
+			},
+
+			locale: 'en_US',
+			style: {
+				size: 'small',
+				color: 'gold',
+				shape: 'pill'
+			},
+			commit: true,
+
+			// Preparation du paiement
+			payment: function(data, actions)
+			{
+				return actions.payment.create({
+					transactions: [{
+						amount: {
+							total: _total,
+							currency: "USD"
+						}
+					}]
+				});
+			},
+
+			// Execution du paiement
+			onAuthorize: function(data, actions)
+			{
+				return actions.payment.execute().then(function(){
+					var url = '@Url.Action("CompleteOrder", "Orders")';
+					console.log(url);
+					window.location.href = url;
+				});
+			},
+
+			onError: function(error) {
+				window.alert(error);
+			}
+		}, '#paypal-btn');
+	</script>
+}

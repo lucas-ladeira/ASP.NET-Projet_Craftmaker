@@ -16,6 +16,20 @@ public class HomeController : Controller
 		_service = service;
 	}
 
+	public async Task<IActionResult> Filter(string searchString)
+	{
+		var allProducts = await _service.GetAllAsync();
+
+		if (!string.IsNullOrEmpty(searchString))
+		{
+			searchString = searchString.ToLower();
+			var filteredResult = allProducts.Where(n => n.Name.ToLower().Contains(searchString.ToLower()) || n.Description.ToLower().Contains(searchString.ToLower()));
+			return View("Index", filteredResult);
+		}
+		return View("Index", allProducts);
+	}
+
+	// GET: Home
 	public async Task<IActionResult> Index()
 	{
 		IEnumerable<Furniture> furnitures = await _service.GetAllAsync();
@@ -26,7 +40,7 @@ public class HomeController : Controller
 	public async Task<IActionResult> Details(int id)
 	{
 		var selectedFurniture = await _service.GetByIdAsync(id);
-		if(selectedFurniture==null) return View("NotFound");
+		if (selectedFurniture == null) return View("NotFound");
 		return View(selectedFurniture);
 	}
 

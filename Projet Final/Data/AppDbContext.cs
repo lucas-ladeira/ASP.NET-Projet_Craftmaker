@@ -33,5 +33,12 @@ namespace Projet_Final.Data
 
 		public DbSet<FurnitureType> FurnitureTypes { get; set; }
 		public DbSet<Furniture> Furnitures { get; set; }
+
+		// Ajout des tables pour la gestion des commandes
+		public DbSet<Order> Orders { get; set; }
+		public DbSet<OrderItem> OrderItems { get; set; }
+
+		// Ajout de la table pour le panier
+		public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
 	}
 }

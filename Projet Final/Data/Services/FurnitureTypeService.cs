@@ -36,7 +36,9 @@ namespace Projet_Final.Data.Services
 
 		public async Task<IEnumerable<FurnitureType>> GetAllAsync()
 		{
-			var result = await _context.FurnitureTypes.OrderBy(t => t.Name).ToListAsync();
+			var result = await _context.FurnitureTypes
+				.Include(t => t.Furnitures)
+				.OrderBy(t => t.Name).ToListAsync();
 			return result;
 		}
 

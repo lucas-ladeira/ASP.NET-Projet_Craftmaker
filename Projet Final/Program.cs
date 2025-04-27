@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Projet_Final.Data;
+using Projet_Final.Data.Cart;
 using Projet_Final.Data.Services;
 
 namespace Projet_Final
@@ -16,6 +17,14 @@ namespace Projet_Final
 			// Configuration Interface Service
 			builder.Services.AddScoped<IFurnitureService, FurnitureService>();
 			builder.Services.AddScoped<IFurnitureTypeService, FurnitureTypeService>();
+
+			// Configuration de la session
+			builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+			builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
+			builder.Services.AddScoped<IOrdersService, OrdersService>();
+
+			builder.Services.AddSession();
+
 			builder.Services.AddControllersWithViews();
 
 			var app = builder.Build();
@@ -32,6 +41,8 @@ namespace Projet_Final
 			app.UseStaticFiles();
 
 			app.UseRouting();
+
+			app.UseSession();
 
 			app.UseAuthorization();
 
