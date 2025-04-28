@@ -18,12 +18,12 @@
 					<h5 class="card-title fw-bold">@item.Name</h5>
 					<p class="card-text">@item.Description</p>
 					<div>
-						<a class="btn btn-light px-3 rounded-pill" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id">
+						<a class="btn btn-light px-3 rounded-pill" title="Ajouter au panier" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id">
 							<i class="bi bi-cart-plus"></i>
 							@item.Price.ToString("F2")$
 						</a>
 					</div>
-					<a class="btn btn-outline-light mt-3 rounded-circle" asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+					<a class="btn btn-outline-light mt-3 rounded-circle" title="Plus d'informations" asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
 						<i class="bi bi-eye"></i>
 					</a>
 				</div>

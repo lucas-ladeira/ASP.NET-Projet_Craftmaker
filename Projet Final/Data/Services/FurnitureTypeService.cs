@@ -44,7 +44,9 @@ namespace Projet_Final.Data.Services
 
 		public async Task<FurnitureType> GetByIdAsync(int id)
 		{
-			var result = await _context.FurnitureTypes.FirstOrDefaultAsync(t => t.Id == id);
+			var result = await _context.FurnitureTypes
+				.Include(t => t.Furnitures)
+				.FirstOrDefaultAsync(t => t.Id == id);
 			return result;
 		}
 

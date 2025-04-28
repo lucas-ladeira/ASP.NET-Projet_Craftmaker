@@ -4,65 +4,79 @@
 	ViewData["Title"] = "Modifier";
 }
 
-<h1 class="text-center my-3">Modifier un meuble</h1>
+<h1 class="text-center my-4">Modifier un meuble</h1>
 
-<hr />
+<hr class="mb-5" />
+
 <div class="row justify-content-center">
-	<div class="col-md-4">
-		<form asp-action="Edit">
-			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			<input type="hidden" asp-for="Id" />
-			<div class="form-group">
-				<label asp-for="Name" class="control-label"></label>
-				<input asp-for="Name" class="form-control" />
-				<span asp-validation-for="Name" class="text-danger"></span>
+	<div class="col-lg-5">
+		<div class="card shadow-sm rounded-4">
+			<div class="card-body">
+				<form asp-action="Edit">
+					<div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+					<input type="hidden" asp-for="Id" />
+
+					<div class="mb-3">
+						<label asp-for="Name" class="form-label fw-semibold"></label>
+						<input asp-for="Name" class="form-control" />
+						<span asp-validation-for="Name" class="text-danger small"></span>
+					</div>
+
+					<div class="mb-3">
+						<label asp-for="Description" class="form-label fw-semibold"></label>
+						<input asp-for="Description" class="form-control" />
+						<span asp-validation-for="Description" class="text-danger small"></span>
+					</div>
+
+					<div class="mb-3">
+						<label asp-for="UrlPicture" class="form-label fw-semibold"></label>
+						<input asp-for="UrlPicture" class="form-control" />
+						<span asp-validation-for="UrlPicture" class="text-danger small"></span>
+					</div>
+
+					<div class="mb-3">
+						<label asp-for="Price" class="form-label fw-semibold"></label>
+						<input asp-for="Price" class="form-control" asp-format="{0:F2}" />
+						<span asp-validation-for="Price" class="text-danger small"></span>
+					</div>
+
+					<div class="mb-3">
+						<label asp-for="Comments" class="form-label fw-semibold"></label>
+						<input asp-for="Comments" class="form-control" />
+						<span asp-validation-for="Comments" class="text-danger small"></span>
+					</div>
+
+					<div class="mb-4">
+						<label asp-for="TypeFurnitureId" class="form-label fw-semibold"></label>
+						<select asp-for="TypeFurnitureId" class="form-select" asp-items="ViewBag.TypeFurnitureId"></select>
+						<span asp-validation-for="TypeFurnitureId" class="text-danger small"></span>
+					</div>
+
+					<div class="d-flex justify-content-between">
+						<button type="submit" class="btn btn-primary px-4">Sauver</button>
+						<a asp-action="Index" class="btn btn-outline-secondary px-4">Retour</a>
+					</div>
+				</form>
 			</div>
-			<div class="form-group">
-				<label asp-for="Description" class="control-label"></label>
-				<input asp-for="Description" class="form-control" />
-				<span asp-validation-for="Description" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="UrlPicture" class="control-label"></label>
-				<input asp-for="UrlPicture" class="form-control" />
-				<span asp-validation-for="UrlPicture" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="Price" class="control-label"></label>
-				<input asp-for="Price" class="form-control" asp-format="{0:F2}" />
-				<span asp-validation-for="Price" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="Comments" class="control-label"></label>
-				<input asp-for="Comments" class="form-control" />
-				<span asp-validation-for="Comments" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="TypeFurnitureId" class="control-label"></label>
-				<select asp-for="TypeFurnitureId" class="form-control" asp-items="ViewBag.TypeFurnitureId"></select>
-				<span asp-validation-for="TypeFurnitureId" class="text-danger"></span>
-			</div>
-			<div class="form-group mt-3 mb-5">
-				<input type="submit" value="Sauver" class="btn btn-primary me-2" />
-				<a class="btn btn-secondary" asp-action="Index">Retour</a>
-			</div>
-		</form>
+		</div>
 	</div>
-	<div class="col-md-4">
-		<img id="UrlPicturePreview" style="max-width:100%" class="img-thumbnail rounded-3" />
+
+	<div class="col-lg-5 d-flex align-items-center">
+		<img id="UrlPicturePreview" class="img-fluid rounded-4 border" style="max-height: 400px; object-fit: contain;" />
 	</div>
 </div>
 
 @section Scripts {
 	<script>
-		$(document).ready(function(){
-			var output = document.getElementById('UrlPicturePreview');
+		$(document).ready(function () {
+			const output = document.getElementById('UrlPicturePreview');
 			output.src = $("#UrlPicture").val();
-		})
+		});
 
-		$("#UrlPicture").on("change", function(){
-			var output = document.getElementById('UrlPicturePreview');
+		$("#UrlPicture").on("input", function () {
+			const output = document.getElementById('UrlPicturePreview');
 			output.src = $(this).val();
-		})
+		});
 	</script>
 }

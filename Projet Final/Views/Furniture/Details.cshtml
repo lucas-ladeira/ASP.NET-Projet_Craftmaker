@@ -1,57 +1,84 @@
 ﻿@model Projet_Final.Models.Furniture
 
 @{
-	ViewData["Title"] = "Détails meuble";
+    ViewData["Title"] = "Détails meuble";
 }
 
-<h1 class="text-center my-3">Détails d'un meuble</h1>
+<div class="text-center mb-5">
+    <h1 class="display-4">@Model.Name</h1>
+    <p class="lead text-muted">Détails du produit</p>
+</div>
 
 <div class="container">
-	<hr />
-	<div class="row justify-content-center">
-		<div class="col-6">
-			<dl class="row">
-				<dt class="col-sm-3">
-					@Html.DisplayNameFor(model => model.Name)
-				</dt>
-				<dd class="col-sm-9">
-					@Html.DisplayFor(model => model.Name)
-				</dd>
-				<dt class="col-sm-3">
-					@Html.DisplayNameFor(model => model.Description)
-				</dt>
-				<dd class="col-sm-9">
-					@Html.DisplayFor(model => model.Description)
-				</dd>
-				<dt class="col-sm-3">
-					@Html.DisplayNameFor(model => model.Price)
-				</dt>
-				<dd class="col-sm-9">
-					@Model.Price.ToString("F2") $
-				</dd>
-				<dt class="col-sm-3">
-					@Html.DisplayNameFor(model => model.Comments)
-				</dt>
-				<dd class="col-sm-9">
-					@(Model.Comments == null ? "-" : Model.Comments)
-				</dd>
-				<dt class="col-sm-3">
-					@Html.DisplayNameFor(model => model.TypeFurniture)
-				</dt>
-				<dd class="col-sm-9">
-					@Html.DisplayFor(model => model.TypeFurniture.Name)
-				</dd>
-			</dl>
-		</div>
-		<div class="col-4">
-			<img src="@Model.UrlPicture" alt="@Model.Name" style="max-height:20rem" class="img-thumbnail rounded-3" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-1"></div>
-		<div class="col-10">
-			<a class="btn btn-primary me-2" asp-action="Edit" asp-route-id="@Model?.Id">Modifier</a>
-			<a class="btn btn-secondary" asp-action="Index">Retour</a>
-		</div>
-	</div>
+    <div class="row g-5 justify-content-center align-items-start">
+        <!-- Image Section - Now larger -->
+        <div class="col-lg-8 col-md-9">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden h-100">
+                <img src="@Model.UrlPicture" alt="@Model.Name"
+                     class="card-img-top img-fluid w-100"
+                     style="height: 70vh; object-fit: contain; background-color: #f8f9fa;">
+            </div>
+        </div>
+
+        <!-- Details Section - Slightly smaller -->
+        <div class="col-lg-4 col-md-8">
+            <div class="card bg-dark text-white rounded-4 border-0 shadow-lg h-100">
+                <div class="card-body p-4 p-xl-5">
+                    <dl class="row mb-0">
+                        <!-- Name -->
+                        <div class="mb-4">
+                            <dt class="text-primary small mb-1">NOM</dt>
+                            <dd class="h3 mb-0">@Html.DisplayFor(model => model.Name)</dd>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-4">
+                            <dt class="text-primary small mb-1">DESCRIPTION</dt>
+                            <dd class="mb-0">@Html.DisplayFor(model => model.Description)</dd>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="mb-4">
+                            <dt class="text-primary small mb-1">PRIX</dt>
+                            <dd class="h2 text-warning">
+                                @Model.Price.ToString("F2") $
+                            </dd>
+                        </div>
+
+                        <!-- Comments -->
+                        <div class="mb-4">
+                            <dt class="text-primary small mb-1">COMMENTAIRES</dt>
+                            <dd class="fst-italic text-muted">
+                                @(Model.Comments ?? "Aucun commentaire disponible")
+                            </dd>
+                        </div>
+
+                        <!-- Furniture Type -->
+                        <div class="mb-4">
+                            <dt class="text-primary small mb-1">TYPE DE MEUBLE</dt>
+                            <dd class="badge bg-primary rounded-pill fs-6">
+                                @Html.DisplayFor(model => model.TypeFurniture.Name)
+                            </dd>
+                        </div>
+                    </dl>
+
+                    <!-- Action Buttons -->
+                    <div class="d-flex gap-3 mt-4 flex-wrap">
+                        <a class="btn btn-lg btn-light rounded-pill px-4 py-2"
+                           asp-action="Edit"
+                           asp-route-id="@Model?.Id">
+                            <i class="bi bi-pencil-square me-2"></i>
+                            Modifier
+                        </a>
+
+                        <a class="btn btn-lg btn-outline-light rounded-pill px-4 py-2"
+                           asp-action="Index">
+                            <i class="bi bi-arrow-left me-2"></i>
+                            Retour
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

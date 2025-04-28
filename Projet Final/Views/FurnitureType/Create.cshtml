@@ -1,29 +1,37 @@
 ﻿@model Projet_Final.Models.FurnitureType
 
 @{
-	ViewData["Title"] = "Créer type de meuble";
+    ViewData["Title"] = "Créer type de meuble";
 }
 
-<h1 class="text-center my-3">Créer un nouveau type de meuble</h1>
-
-<hr />
-<div class="row">
-	<div class="col-md-4">
-		<form asp-action="Create">
-			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			<div class="form-group">
-				<label asp-for="Name" class="control-label"></label>
-				<input asp-for="Name" class="form-control" />
-				<span asp-validation-for="Name" class="text-danger"></span>
-			</div>
-			<div class="form-group mt-3">
-				<input type="submit" value="Créer" class="btn btn-primary" />
-				<a class="btn btn-secondary" asp-action="Index">Retour</a>
-			</div>
-		</form>
-	</div>
+<div class="text-center mb-5">
+    <h1 class="display-4">Créer un nouveau type de meuble</h1>
+    <p class="lead text-muted">Remplissez les informations ci-dessous</p>
 </div>
 
-<div>
-</div>
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card bg-dark text-white rounded-4 border-0 shadow-lg">
+                <div class="card-body p-4 p-xl-5">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
+                        <!-- Name Field -->
+                        <div class="form-group mb-4">
+                            <label asp-for="Name" class="form-label text-primary small"></label>
+                            <input asp-for="Name" class="form-control form-control-lg rounded-3" placeholder="Ex: Table, Chaise, etc." />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="d-flex gap-3 mt-4">
+                            <input type="submit" value="Créer" class="btn btn-light btn-lg rounded-pill px-4" />
+                            <a class="btn btn-outline-light btn-lg rounded-pill px-4" asp-action="Index">Retour</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,54 +4,73 @@
 	ViewData["Title"] = "Détails meuble";
 }
 
-<h1 class="text-center my-3">Détails d'un meuble</h1>
+<div class="text-center mb-5">
+	<h1 class="display-4">Détails du meuble</h1>
+</div>
 
 <div class="container">
-	<hr />
-	<div class="row justify-content-center">
-		<div class="col-6">
-			<dl class="row">
-				<dt class="col-sm-3">
-					@Html.DisplayNameFor(model => model.Name)
-				</dt>
-				<dd class="col-sm-9">
-					@Html.DisplayFor(model => model.Name)
-				</dd>
-				<dt class="col-sm-3">
-					@Html.DisplayNameFor(model => model.Description)
-				</dt>
-				<dd class="col-sm-9">
-					@Html.DisplayFor(model => model.Description)
-				</dd>
-				<dt class="col-sm-3">
-					@Html.DisplayNameFor(model => model.Price)
-				</dt>
-				<dd class="col-sm-9">
-					@Model.Price.ToString("F2") $
-				</dd>
-				<dt class="col-sm-3">
-					@Html.DisplayNameFor(model => model.Comments)
-				</dt>
-				<dd class="col-sm-9">
-					@(Model.Comments == null ? "-" : Model.Comments)
-				</dd>
-				<dt class="col-sm-3">
-					@Html.DisplayNameFor(model => model.TypeFurniture)
-				</dt>
-				<dd class="col-sm-9">
-					@Html.DisplayFor(model => model.TypeFurniture.Name)
-				</dd>
-			</dl>
+	<div class="row g-5 justify-content-center align-items-stretch">
+		<!-- Added align-items-stretch -->
+		<!-- Image Column -->
+		<div class="col-lg-5 col-12">
+			<div class="card border-0 rounded-4 overflow-hidden shadow-lg h-100">
+				<!-- Added h-100 -->
+				<div class="h-100 d-flex align-items-center">
+					<!-- Added height container -->
+					<img src="@Model.UrlPicture" alt="@Model.Name"
+						 class="card-img-top img-fluid h-100"
+						 style="object-fit: cover; object-position: center;">
+				</div>
+			</div>
 		</div>
-		<div class="col-4">
-			<img src="@Model.UrlPicture" alt="@Model.Name" style="max-height:20rem" class="img-thumbnail rounded-3" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-1"></div>
-		<div class="col-10">
-			<a class="btn btn-primary me-2" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@Model.Id">Add</a>
-			<a class="btn btn-secondary" asp-action="Index">Retour</a>
+
+		<!-- Details Column -->
+		<div class="col-lg-6 col-12">
+			<div class="card bg-dark text-white rounded-4 border-0 shadow-lg h-100">
+				<!-- Added h-100 -->
+				<div class="card-body p-4 p-xl-5 d-flex flex-column">
+					<!-- Added flex-column -->
+					<dl class="row mb-4 flex-grow-1">
+						<!-- Added flex-grow-1 -->
+						<dt class="col-sm-4 fs-5 text-primary">Nom</dt>
+						<dd class="col-sm-8 fs-5">@Html.DisplayFor(model => model.Name)</dd>
+
+						<dt class="col-sm-4 text-primary mt-3">Description</dt>
+						<dd class="col-sm-8 mt-3">@Html.DisplayFor(model => model.Description)</dd>
+
+						<dt class="col-sm-4 text-primary mt-3">Prix</dt>
+						<dd class="col-sm-8 display-6 text-warning mt-3">
+							@Model.Price.ToString("F2") $
+						</dd>
+
+						<dt class="col-sm-4 text-primary mt-3">Commentaires</dt>
+						<dd class="col-sm-8 mt-3">
+							@(Model.Comments ?? "-")
+						</dd>
+
+						<dt class="col-sm-4 text-primary mt-3">Type de meuble</dt>
+						<dd class="col-sm-8 mt-3">
+							@Html.DisplayFor(model => model.TypeFurniture.Name)
+						</dd>
+					</dl>
+
+					<div class="d-flex gap-3 mt-4">
+						<a class="btn btn-lg btn-light rounded-pill px-4 py-2 d-flex align-items-center"
+						   asp-controller="Orders"
+						   asp-action="AddItemToShoppingCart"
+						   asp-route-id="@Model.Id">
+							<i class="bi bi-cart-plus me-2"></i>
+							Ajouter au panier
+						</a>
+
+						<a class="btn btn-lg btn-outline-light rounded-pill px-4 py-2 d-flex align-items-center"
+						   asp-action="Index">
+							<i class="bi bi-arrow-left me-2"></i>
+							Retour
+						</a>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

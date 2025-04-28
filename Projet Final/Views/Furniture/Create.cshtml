@@ -4,46 +4,85 @@
 	ViewData["Title"] = "Créer meuble";
 }
 
-<h1 class="my-3">Créer un nouveau meuble</h1>
-
+<h1 class="my-3 text-center">Créer un nouveau meuble</h1>
 <hr />
-<div class="row">
-	<div class="col-md-4">
+
+<div class="row justify-content-center">
+	<!-- Formulário -->
+	<div class="col-md-5">
 		<form asp-action="Create">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			<div class="form-group">
+
+			<!-- Nom -->
+			<div class="form-group mb-3">
 				<label asp-for="Name" class="control-label"></label>
 				<input asp-for="Name" class="form-control" />
 				<span asp-validation-for="Name" class="text-danger"></span>
 			</div>
-			<div class="form-group">
+
+			<!-- Description -->
+			<div class="form-group mb-3">
 				<label asp-for="Description" class="control-label"></label>
 				<input asp-for="Description" class="form-control" />
 				<span asp-validation-for="Description" class="text-danger"></span>
 			</div>
-			<div class="form-group">
+
+			<!-- UrlPicture -->
+			<div class="form-group mb-3">
 				<label asp-for="UrlPicture" class="control-label"></label>
-				<input asp-for="UrlPicture" class="form-control" />
+				<input asp-for="UrlPicture" class="form-control" id="UrlPictureInput" />
 				<span asp-validation-for="UrlPicture" class="text-danger"></span>
 			</div>
-			<div class="form-group">
+
+			<!-- Prix -->
+			<div class="form-group mb-3">
 				<label asp-for="Price" class="control-label"></label>
 				<input asp-for="Price" class="form-control" />
 				<span asp-validation-for="Price" class="text-danger"></span>
 			</div>
-			<div class="form-group">
+
+			<!-- Commentaires -->
+			<div class="form-group mb-3">
 				<label asp-for="Comments" class="control-label"></label>
 				<input asp-for="Comments" class="form-control" />
 				<span asp-validation-for="Comments" class="text-danger"></span>
 			</div>
-			<div class="form-group">
+
+			<!-- TypeFurniture -->
+			<div class="form-group mb-4">
 				<label asp-for="TypeFurnitureId" class="control-label"></label>
 				<select asp-for="TypeFurnitureId" class="form-control" asp-items="ViewBag.TypeFurnitureId"></select>
 			</div>
-			<div class="form-group mt-3">
-				<input type="submit" value="Créer" class="btn btn-primary" />
-				<a class="btn btn-secondary" asp-action="Index">Retour</a>
+
+			<!-- Boutons -->
+			<div class="d-flex gap-3">
+				<input type="submit" value="Créer" class="btn btn-primary flex-fill" />
+				<a class="btn btn-secondary flex-fill" asp-action="Index">Retour</a>
 			</div>
 		</form>
 	</div>
+
+	<!-- Prévisualisation -->
+	<div class="col-md-5 d-flex justify-content-center align-items-start mt-4 mt-md-0">
+		<div class="card shadow rounded-4 p-3" style="width: 100%; max-width: 400px;">
+			<h5 class="text-center">Aperçu de l'image</h5>
+			<img id="UrlPicturePreview" src="" class="img-fluid rounded mt-3" alt="Prévisualisation de l'image'" style="object-fit: contain; width: 100%; height: 300px;">
+		</div>
+	</div>
 </div>
+
+@section Scripts {
+	<script>
+		$(document).ready(function(){
+			// Mise à jour initiale de l'aperçu
+			var output = document.getElementById('UrlPicturePreview');
+			output.src = $("#UrlPicture").val();
+		})
+
+		$("#UrlPictureInput").on("input", function(){
+			// Mise à jour de l'aperçu en temps réel
+			var output = document.getElementById('UrlPicturePreview');
+			output.src = $(this).val();
+		})
+	</script>
+}

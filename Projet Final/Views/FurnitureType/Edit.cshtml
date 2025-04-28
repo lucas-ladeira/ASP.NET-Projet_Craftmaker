@@ -4,24 +4,31 @@
 	ViewData["Title"] = "Edit";
 }
 
-<h1 class="text-center my-3">Modifier un type de meuble</h1>
+<h1 class="text-center my-4">Modifier un type de meuble</h1>
 
-<hr />
+<hr class="mb-5" />
+
 <div class="row justify-content-center">
-	<div class="col-md-4">
-		<form asp-action="Edit">
-			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			<input type="hidden" asp-for="Id" />
-			<div class="form-group">
-				<label asp-for="Name" class="control-label"></label>
-				<input asp-for="Name" class="form-control" />
-				<span asp-validation-for="Name" class="text-danger"></span>
+	<div class="col-lg-5">
+		<div class="card shadow-sm rounded-4">
+			<div class="card-body">
+				<form asp-action="Edit">
+					<div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+					<input type="hidden" asp-for="Id" />
+
+					<div class="mb-4">
+						<label asp-for="Name" class="form-label fw-semibold"></label>
+						<input asp-for="Name" class="form-control" />
+						<span asp-validation-for="Name" class="text-danger small"></span>
+					</div>
+
+					<div class="d-flex justify-content-between">
+						<button type="submit" class="btn btn-primary px-4">Sauver</button>
+						<a asp-action="Index" class="btn btn-outline-secondary px-4">Retour</a>
+					</div>
+				</form>
 			</div>
-			<div class="form-group mt-3 mb-5">
-				<input type="submit" value="Save" class="btn btn-primary me-2" />
-				<a class="btn btn-secondary" asp-action="Index">Retour</a>
-			</div>
-		</form>
+		</div>
 	</div>
 </div>
-

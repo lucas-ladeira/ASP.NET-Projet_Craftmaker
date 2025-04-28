@@ -1,27 +1,73 @@
 ﻿@model Projet_Final.Models.FurnitureType
 
 @{
-	ViewData["Title"] = "Details";
+    ViewData["Title"] = "Détails type de meuble";
 }
 
-<h1 class="text-center my-3">Détails d'un type de meuble</h1>
+<div class="text-center mb-5">
+    <h1 class="display-4">@Model.Name</h1>
+    <p class="lead text-muted">Détails du type de meuble</p>
+</div>
 
 <div class="container">
-	<hr />
-	<div class="row justify-content-center">
-		<div class="col-6">
-			<dl class="row">
-				<dt class="col-sm-2">
-					@Html.DisplayNameFor(model => model.Name)
-				</dt>
-				<dd class="col-sm-10">
-					@Html.DisplayFor(model => model.Name)
-				</dd>
-			</dl>
-			<div>
-				<a class="btn btn-primary me-2" asp-action="Edit" asp-route-id="@Model?.Id">Modifier</a>
-				<a class="btn btn-secondary" asp-action="Index">Retour</a>
-			</div>
-		</div>
-	</div>
+    <div class="row g-5 justify-content-center align-items-start">
+        <!-- Left Side: Furniture Type Details -->
+        <div class="col-lg-5 col-md-8">
+            <div class="card bg-dark text-white rounded-4 border-0 shadow-lg h-100">
+                <div class="card-body p-4 p-xl-5">
+                    <dl class="row mb-0">
+                        <!-- Name -->
+                        <div class="mb-4">
+                            <dt class="text-primary small mb-1">NOM DU TYPE</dt>
+                            <dd class="h3 mb-0">@Html.DisplayFor(model => model.Name)</dd>
+                        </div>
+                    </dl>
+
+                    <!-- Action Buttons -->
+                    <div class="d-flex gap-3 mt-4 flex-wrap">
+                        <a class="btn btn-lg btn-light rounded-pill px-4 py-2"
+                           asp-action="Edit"
+                           asp-route-id="@Model?.Id">
+                            <i class="bi bi-pencil-square me-2"></i>
+                            Modifier
+                        </a>
+
+                        <a class="btn btn-lg btn-outline-light rounded-pill px-4 py-2"
+                           asp-action="Index">
+                            <i class="bi bi-arrow-left me-2"></i>
+                            Retour
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: List of Associated Furnitures -->
+        <div class="col-lg-6 col-md-10">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden h-100">
+                <div class="card-body p-4 p-xl-5">
+                    <h3 class="mb-4 text-center">Meubles associés</h3>
+
+                    @if (Model.Furnitures != null && Model.Furnitures.Any())
+                    {
+                        <div class="list-group list-group-flush">
+                            @foreach (var furniture in Model.Furnitures)
+                            {
+                                <a asp-controller="Furniture" asp-action="Details" asp-route-id="@furniture.Id" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                    <span class="fw-semibold">@furniture.Name</span>
+                                    <span class="badge bg-primary rounded-pill">@furniture.Price.ToString("F2") $</span>
+                                </a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info text-center">
+                            Aucun meuble associé à ce type pour le moment.
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
