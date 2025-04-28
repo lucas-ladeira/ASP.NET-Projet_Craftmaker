@@ -11,7 +11,7 @@
 </div>
 
 <div class="container d-flex justify-content-center">
-	<table id="typeList" class="table table-striped table-bordered mb-5">
+	<table id="typeList" class="table-responsive table-striped table-bordered mb-5">
 		<thead>
 			<tr class="bg-dark text-white">
 				<th class="align-middle px-2">
@@ -24,12 +24,12 @@
 			@foreach (var item in Model)
 			{
 				<tr>
-					<td class="align-middle px-2">
+					<td class="align-middle ps-2 pe-5">
 						@Html.DisplayFor(modelItem => item.Name)
 					</td>
-					<td class="align-middle text-center">
+					<td class="align-middle text-center px-4">
 						<a title="Modifier" class="btn btn-primary rounded-circle m-1" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"> </i> </a>
-						<a title="Détails" class="btn btn-warning rounded-circle m-1" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-info-circle"> </i> </a>
+						<a title="Détails" class="btn btn-secondary rounded-circle m-1" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-info-circle"> </i> </a>
 						<a title="Supprimer" class="btn btn-danger rounded-circle m-1" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash3"> </i> </a>
 					</td>
 				</tr>
