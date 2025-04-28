@@ -34,3 +34,32 @@ footer {
     position: absolute;
     bottom: 0;
 }
+
+/* Card Styles */
+.card {
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    transition: transform 0.2s ease-in-out;
+}
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+.card-img-top {
+    height: 288px;
+    object-fit: cover;
+}
+
+.card-title {
+    line-height: 1.4;
+    height: calc(1.4em * 1);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-text {
+    line-height: 1.4;
+    height: calc(1.4em * 2);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
